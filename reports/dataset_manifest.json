@@ -1,0 +1,206 @@
+{
+  "inspection": {
+    "source": "F:\\大唐道路\\datasets\\raw",
+    "archives": [
+      {
+        "archive": "datasets\\raw\\driver_emotion_fer2013\\fer2013_images.zip",
+        "files": 35887,
+        "compressed_bytes": 63252113,
+        "uncompressed_bytes": 56510189,
+        "extensions": {
+          ".jpg": 35887
+        },
+        "classes": {
+          "train": {
+            "angry": 3995,
+            "disgust": 436,
+            "fear": 4097,
+            "happy": 7215,
+            "neutral": 4965,
+            "sad": 4830,
+            "surprise": 3171
+          },
+          "test": {
+            "angry": 958,
+            "disgust": 111,
+            "fear": 1024,
+            "happy": 1774,
+            "neutral": 1233,
+            "sad": 1247,
+            "surprise": 831
+          }
+        }
+      },
+      {
+        "archive": "datasets\\raw\\lane_tusimple_preprocessed\\tusimple_preprocessed.zip",
+        "files": 14504,
+        "compressed_bytes": 1437466762,
+        "uncompressed_bytes": 1628444206,
+        "extensions": {
+          ".jpg": 14504
+        },
+        "paired": 7252,
+        "unpaired_frames": 0,
+        "unpaired_masks": 0
+      },
+      {
+        "archive": "datasets\\raw\\vehicle_detection_3class\\train_images.zip",
+        "files": 16356,
+        "compressed_bytes": 1259763275,
+        "uncompressed_bytes": 1296367276,
+        "extensions": {
+          ".jpg": 16356
+        }
+      },
+      {
+        "archive": "datasets\\raw\\vehicle_detection_3class\\train_labels.zip",
+        "files": 16356,
+        "compressed_bytes": 3350861,
+        "uncompressed_bytes": 1608004,
+        "extensions": {
+          ".txt": 16356
+        },
+        "label_class_counts": {
+          "2": 4598,
+          "1": 13876,
+          "0": 8364
+        },
+        "malformed_label_rows": 0
+      },
+      {
+        "archive": "datasets\\raw\\vehicle_detection_3class\\test_images.zip",
+        "files": 1500,
+        "compressed_bytes": 294210884,
+        "uncompressed_bytes": 297042672,
+        "extensions": {
+          ".jpg": 1500
+        }
+      },
+      {
+        "archive": "datasets\\raw\\vehicle_detection_3class\\test_labels.zip",
+        "files": 1500,
+        "compressed_bytes": 319377,
+        "uncompressed_bytes": 223900,
+        "extensions": {
+          ".txt": 1500
+        },
+        "label_class_counts": {
+          "1": 2177,
+          "0": 718,
+          "2": 333
+        },
+        "malformed_label_rows": 0
+      },
+      {
+        "archive": "datasets\\raw\\traffic_sign_gtsrb\\gtsrb_training_fixed.zip",
+        "files": 26684,
+        "compressed_bytes": 187490228,
+        "uncompressed_bytes": 250570704,
+        "extensions": {
+          ".ppm": 26640,
+          ".csv": 43,
+          ".txt": 1
+        },
+        "class_count": 43,
+        "class_image_counts": {
+          "00000": 150,
+          "00001": 1500,
+          "00002": 1500,
+          "00003": 960,
+          "00004": 1320,
+          "00005": 1260,
+          "00006": 300,
+          "00007": 960,
+          "00008": 960,
+          "00009": 990,
+          "00010": 1350,
+          "00011": 900,
+          "00012": 1410,
+          "00013": 1440,
+          "00014": 540,
+          "00015": 420,
+          "00016": 300,
+          "00017": 750,
+          "00018": 810,
+          "00019": 150,
+          "00020": 240,
+          "00021": 240,
+          "00022": 270,
+          "00023": 360,
+          "00024": 180,
+          "00025": 1020,
+          "00026": 420,
+          "00027": 180,
+          "00028": 360,
+          "00029": 180,
+          "00030": 300,
+          "00031": 540,
+          "00032": 180,
+          "00033": 480,
+          "00034": 300,
+          "00035": 810,
+          "00036": 270,
+          "00037": 150,
+          "00038": 1380,
+          "00039": 210,
+          "00040": 240,
+          "00041": 180,
+          "00042": 180
+        }
+      },
+      {
+        "archive": "datasets\\raw\\vehicle_images_unlabeled\\kitti_object_image_2.zip",
+        "files": 14999,
+        "compressed_bytes": 12569945557,
+        "uncompressed_bytes": 12567112335,
+        "extensions": {
+          ".png": 14999
+        },
+        "has_label_2": false
+      }
+    ],
+    "assignments": [
+      {
+        "model": "pytorch_cnn",
+        "task": "driver_emotion_classification",
+        "status": "trainable",
+        "data": "driver_emotion_fer2013",
+        "algorithm": "OpenCV preprocessing + PyTorch CNN"
+      },
+      {
+        "model": "yolo26",
+        "task": "traffic_sign_detection",
+        "status": "trainable",
+        "data": "traffic_sign_gtsrb",
+        "algorithm": "YOLO26 detection; GTSRB ROI converted to YOLO boxes"
+      },
+      {
+        "model": "yolo26_deepsort",
+        "task": "vehicle_detection_and_tracking",
+        "status": "trainable_and_inference_ready",
+        "data": "vehicle_detection_3class",
+        "algorithm": "YOLO26 detection + DeepSORT tracking"
+      },
+      {
+        "model": "swin_v2",
+        "task": "lane_segmentation",
+        "status": "trainable",
+        "data": "lane_tusimple_full",
+        "algorithm": "PyTorch Swin Transformer V2 encoder + segmentation decoder"
+      },
+      {
+        "model": "none",
+        "task": "unlabeled_kitti_images",
+        "status": "blocked_missing_labels",
+        "data": "vehicle_images_unlabeled",
+        "algorithm": "not used until label_2 is supplied"
+      }
+    ]
+  },
+  "extracted": {
+    "driver_emotion_images": 35887,
+    "lane_pairs": 7252,
+    "vehicle_image_label_pairs": 17856,
+    "traffic_sign_roi_images": 26640
+  }
+}
